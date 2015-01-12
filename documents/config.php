@@ -2,7 +2,7 @@
 
 Config::set('documents', array(
     'version' => '0.8.0',
-    'active' => false,
+    'active' => true,
     'path' => 'modules',
     'topmenu' => true,
 ));
@@ -18,7 +18,7 @@ Config::set('documents.types.dm_object', array(
 
 	'title' => "Object",
 	'comment' => "An Object is the toplevel node type",
-	'is_a' => null, // does not inherit from any other type
+	'parent' => null, // does not inherit from any other type
 	'is_abstract' => true // this means it will not appear in the UI for creating new nodes
 ));
 
@@ -29,7 +29,7 @@ Config::set('documents.types.dm_content', array(
 	'title' => "Content",
 	'comment' => "Content is just plain content, eg. a web page or a note",
 	
-	'is_a' => 'object', // inherits from 'object' type
+	'parent' => 'dm_object', // inherits from 'object' type
 	'has_attachments' => true, // 'has_attachments' defines the number of allowed cmfive attachments for a node of this type
 	'has_comments' => true, // whether to allow the cmfive comment tab on this node type
 	
@@ -48,7 +48,7 @@ Config::set('documents.types.dm_file', array(
 	'title' => "File",
 	'comment' => "A file is an object which has a binary or text attachment",
 
-	'is_a' => 'object', // inherits from 'object' type
+	'parent' => 'dm_object', // inherits from 'object' type
 	'has_attachments' => true, // 'has_attachments' defines the number of allowed cmfive attachments for a node of this type
 	'limit_attachments' => 1, // the number of attachments is limited to 1
 	'has_comments' => true, // whether to allow the cmfive comment tab on this node type
@@ -89,9 +89,8 @@ Config::set('documents.types.dm_folder', array(
 	// type definition
 	'title' => "Folder",
 	'comment' => "A folder holds other objects",
-	'is_a' => 'object', // inherits from 'object' type
-	'has_attachments' => 0, // defines the number of allowed cmfive attachments for a node of this type, 
-							//false means no attachments, 0 means unlimited attachments!
+	'parent' => 'dm_object', // inherits from 'object' type
+	'has_attachments' => false, //false means no attachments
 	'has_comments' => true, // allow cmfive comments
 	
 	// definition of properties
@@ -138,7 +137,7 @@ Config::set('documents.types.dm_category', array(
 	// type definition
 	'title' => "Category",
 	'comment' => "A category ",
-	'is_a' => null, // Does NOT inherit from dm_object!
+	'parent' => null, // Does NOT inherit from dm_object!
 	'has_attachments' => false, // 'has_attachments' defines the number of allowed cmfive attachments for a node of this type
 	'has_comments' => false,
 	
@@ -178,11 +177,11 @@ Config::set('documents.types.dm_category', array(
 /**
  * Aspect Has Title
  */
-Config::set ( 'document.aspects.dm_has_title', array (
+Config::set ( 'documents.aspects.dm_has_title', array (
 		
 	'title' => "Has Title",
 	'comment' => "Adds a title to any node with this aspect",
-	'is_a' => null, // does not inherit from other aspects
+	'parent' => null, // does not inherit from other aspects
 	
 	'properties' => array (
 		'dm_title' => array (
@@ -197,11 +196,11 @@ Config::set ( 'document.aspects.dm_has_title', array (
 /**
  * Aspect Has Description
  */
-Config::set ( 'document.aspects.dm_has_description', array (
+Config::set ( 'documents.aspects.dm_has_description', array (
 		
 	'title' => "Has Description",
 	'comment' => "Adds a descriptive long text to any node with this aspect",
-	'is_a' => null, // does not inherit from other aspects
+	'parent' => null, // does not inherit from other aspects
 	
 	'properties' => array (
 		'dm_description' => array (
@@ -216,11 +215,11 @@ Config::set ( 'document.aspects.dm_has_description', array (
 /**
  * Aspect Classifiable
  */
-Config::set ('document.aspects.dm_classifiable', array (
+Config::set ('documents.aspects.dm_classifiable', array (
 	
 	'title' => "Classifiable",
 	'comment' => "Enables a node to be associated with one or many categories",
-	'is_a' => null, // does not inherit from other aspects
+	'parent' => null, // does not inherit from other aspects
 	
 	'associations' => array(
 		'dm_categories' => array(

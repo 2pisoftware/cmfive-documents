@@ -1,8 +1,8 @@
 <?php
-class DmNodeAssoc extends DbObject {
+class DmNodeAssociation extends DbObject {
 	
 	public $node_id;
-	public $assoc_name;
+	public $association_name;
 	public $target_node_id;	
 	
 	public $creator_id;
