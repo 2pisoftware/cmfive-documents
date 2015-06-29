@@ -3,6 +3,7 @@ class DmNodeAspect extends DbObject {
 	
 	public $aspect_name;
 	public $node_id;
+	public $is_mandatory;
 
 	public $creator_id;
 	public $modifier_id;
